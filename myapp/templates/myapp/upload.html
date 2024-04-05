@@ -1,0 +1,132 @@
+{% extends "myapp/base.html" %} 
+{% block content %}
+<div class="container">
+  <!-- Display Messages -->
+  {% if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  
+<!-- Resume Upload and Analysis Instructions -->
+<div class="row my-4">
+  <div class="col-md-12 text-center">
+      <h1>Upload Your Resume</h1>
+      <p>Ready to elevate your CV? Upload your resume now and let our AI-driven analysis unveil your CV's strengths and areas for improvement. Step into the spotlight with a resume that makes an impact.</p>
+
+      <!-- Combined Form for Position Selection and Document Upload -->
+      <form 
+        action="{% url 'upload' %}" 
+        method="post" 
+        enctype="multipart/form-data"
+        class="text-center"
+      >
+        {% csrf_token %}
+        
+        <!-- Position Selection -->
+        <select 
+          class="form-control mb-3" 
+          id="position" 
+          name="position" 
+          required
+        >
+          <option value="" disabled selected>Choose your Position:</option>
+          <option value="Java Developer">Java Developer</option>
+          <option value="Data Analyst">Data Analyst</option>
+          <option value="Python Developer">Python Developer</option>
+          <option value="Automation Engineer">Automation Engineer</option>
+        </select>
+
+        <!-- Document Upload -->
+        <div class="custom-file mb-3">
+          <input 
+            type="file" 
+            class="custom-file-input" 
+            id="customFile" 
+            name="document" 
+            required
+          />
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Loading Spinner (hidden by default) -->
+<div id="loadingSpinner" class="text-center" style="display: none;">
+  <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<!-- Placeholder for progress updates -->
+<div id="progressUpdates" class="text-center mt-3"></div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      var form = document.querySelector("form");
+      var customFileInput = document.querySelector(".custom-file-input");
+  
+      customFileInput.addEventListener("change", function () {
+          var fileName = this.files[0].name;
+          var nextSibling = this.nextElementSibling;
+          nextSibling.innerText = fileName;
+      });
+  
+      form.addEventListener("submit", function () {
+          // Show the spinner
+          document.getElementById("loadingSpinner").style.display = 'block';
+          // Optionally disable the submit button to prevent multiple submissions
+          form.querySelector('[type="submit"]').setAttribute('disabled', true);
+        // Start the sequence of progress updates after a brief delay to simulate processing
+        setTimeout(() => {
+          updateProgress();
+      }, 500); // Adjusted to start after a short delay
+      });
+
+      function updateProgress() {
+        const updates = [
+            "Parsing the document...",
+            "Extracting text from the document...",
+            "Analyzing resume...",
+            "Scoring resume...",
+            "Summarizing findings...",
+            "Generating suggestions...",
+            "Searching for missing skills...",
+            "Improving the resume...",
+            "Finishing touches..."
+        ];
+        let index = 0;
+        const interval = 5000; // Time between updates
+
+        function showNextUpdate() {
+            if (index < updates.length) {
+                progressUpdates.innerText = updates[index++];
+                setTimeout(showNextUpdate, interval);
+            } else {
+                spinner.style.display = 'none'; // Hide spinner when done
+                form.querySelector('[type="submit"]').removeAttribute('disabled'); // Re-enable the submit button
+            }
+        }
+
+        showNextUpdate(); // Start showing updates
+    }
+  });
+  </script>
+  
+{% endblock %}

@@ -1,0 +1,6 @@
+/.env
+/app.log
+/data
+/howgoodismycv-dev.zip
+/mongodb_commands
+/venv

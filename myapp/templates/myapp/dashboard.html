@@ -1,0 +1,241 @@
+{% extends "myapp/base.html" %} {% block extra_head %} {% load static %}
+<!-- Existing head content -->
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+<title>Overview Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/styledashboard.css' %}" />
+<script src="{% static 'js/dashboardScript.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-circle-progress/dist/circle-progress.min.js"></script>
+{% endblock %} {% block content %}
+
+<div class="content-wrapper">
+    <h2 class="text-dark font-weight-bold mb-2">Overview Dashboard</h2>
+    <!-- Cards Container -->
+    <div class="row">
+        <!-- Overall Score Card -->
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="mb-2 text-danger">Overall Score:</div>
+              <div id="overallScoreProgress" class="circle-progress" data-score="{{ analysis_result.overall_score|default:'0'|floatformat:2 }}"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills Score Card -->
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="mb-2 text-danger">Skills Score:</div>
+              <div id="skillsScoreProgress" class="circle-progress" data-score="{{ analysis_result.skills_score|default:'0'|floatformat:2 }}"></div>
+              <p class="mt-4 mb-0">Check Below on how to improve skills</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Score Card -->
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="mb-2 text-danger">Education Score:</div>
+              <div id="educationScoreProgress" class="circle-progress" data-score="{{ analysis_result.edu_score|default:'0'|floatformat:2 }}"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Score Card -->
+        <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="mb-2 text-danger">Experience Score:</div>
+              <div id="experienceScoreProgress" class="circle-progress" data-score="{{ analysis_result.exp_score|default:'0'|floatformat:2 }}"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--  Summary Section  -->
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-dark">Summary:</h4>
+            <p>{{ analysis_result.summarize|linebreaksbr }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Missing Skills Section -->
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-0">
+              Missing Skills Keywords you should Consider Adding:
+            </h4>
+            <div id="missing_skills_display"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Education Review Section -->
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-dark" id="education_review_display"></div>
+            <p class="card-title text-dark">Grammar Review:</p>
+            <p>{{ analysis_result.grammarcheck|linebreaksbr }}</p>
+            <p class="card-title text-dark">Suggestions:</p>
+            <p>{{ analysis_result.suggestions|linebreaksbr }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upgraded PDF Section -->
+    <div class="row">
+      <div class="col-12 grid-margin">
+          <div class="card">
+              <div class="card-body">
+                  <h4 class="card-title text-dark">Upgraded Resume:</h4>
+                  <p>
+                      Using advanced AI algorithms, we have upgraded your resume to enhance its presentation and content. This optimized version is designed to better highlight your skills and experience to potential employers. You can view and download the upgraded resume from the link below:
+                  </p>
+                  {% if analysis_result.upgraded_pdf %}
+                  <p>
+                      <a href="{{ analysis_result.upgraded_pdf.url }}">View Upgraded Resume</a>
+                  </p>
+                  {% else %}
+                  <p>Your upgraded resume is not available at this moment. Please check back later.</p>
+                  {% endif %} 
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- Similar Resumes Section -->
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-dark">Similar Resumes</h4>
+              <div id="google_images_container"><!-- Google images will be displayed here --></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    
+{% endblock %}
+<!-- Scripts -->
+{% block additional_scripts %}
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+<script src="{% static 'vendor/js/vendor.bundle.base.js' %}"></script>
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-circle-progress/dist/circle-progress.min.js"></script>
+<script
+  src="{% static 'js/jquery.cookie.js' %}"
+  type="text/javascript"
+></script>
+<script src="{% static 'js/off-canvas.js' %}"></script>
+<script src="{% static 'js/hoverable-collapse.js' %}"></script>
+<script src="{% static 'js/misc.js' %}"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="{% static 'js/score-progress.js' %}"></script>
+  
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var missingSkills = JSON.parse('{{ missing_skills_json|safe }}');
+
+      // Define an ordinal scale with a set of categorical colors
+      // Here, we use d3.schemeCategory10 for a variety of colors,
+      // but you can customize this array with any colors you prefer.
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+      // Define the SVG dimensions
+      var svgWidth = 960, svgHeight = 600;
+
+      d3.layout.cloud().size([svgWidth, svgHeight])
+          .words(missingSkills.map(function(d) {
+              // Adjust the size calculation for visibility and differentiation
+              var minSize = 10; // Minimum font size for visibility
+              var sizeIncrement = (d.Count / d3.max(missingSkills, d => d.Count)) * 50; // Scale size based on count
+              return { text: d.Skill, size: minSize + sizeIncrement, count: d.Count };
+          }))
+          .padding(5) // Adjust padding to fit words
+          .rotate(function() { return 0; }) // Keep all words horizontal
+          .font("Arial")
+          .fontSize(function(d) { return d.size; })
+          .on("end", draw)
+          .start();
+  
+      function draw(words) {
+          d3.select("#missing_skills_display").append("svg")
+              .attr("width", svgWidth)
+              .attr("height", svgHeight)
+              .append("g")
+              // Center the word cloud within the SVG
+              .attr("transform", "translate(" + svgWidth / 2 + "," + svgHeight / 2 + ")")
+              .selectAll("text")
+              .data(words)
+              .enter().append("text")
+              .style("font-size", function(d) { return d.size + "px"; })
+              .style("font-family", "Arial")
+              .attr("text-anchor", "middle")
+              .attr("transform", function(d) {
+                  // Position each word based on the layout calculation
+                  return "translate(" + [d.x, d.y] + ")";
+              })
+              .style("fill", function(d, i) { return color(i); }) // Assign a unique color based on index
+              .text(function(d) { return d.text; });
+      }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const googleImages = JSON.parse('{{ google_images_json|safe }}');
+    const imagesRow = document.getElementById('google_images_container');
+  
+    if(imagesRow) {
+      googleImages.forEach(function(imageUrl) {
+        const column = document.createElement('div');
+        column.className = 'col-12 col-sm-4 col-md-4 col-lg-3 mb-3 d-flex justify-content-center align-items-center';
+  
+        // Create an anchor element that links to the image URL
+        const link = document.createElement('a');
+        link.href = imageUrl; // Set the href to the image URL
+        link.target = '_blank'; // Optional: Open in a new tab
+
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = 'Similar Resume';
+        img.className = 'img-fluid';
+        img.style.maxHeight = '50vh'; // 50% of the viewport height
+
+        // Append the img to the link, then the link to the column
+        link.appendChild(img);
+        column.appendChild(link);
+        imagesRow.appendChild(column);
+      });
+    } else {
+      console.error("Container for images not found");
+    }
+  });
+</script>
+
+  
+{% endblock additional_scripts %}
+    
+

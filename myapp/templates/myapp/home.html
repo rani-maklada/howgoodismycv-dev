@@ -1,0 +1,256 @@
+{% extends "myapp/base.html" %}
+{% block content %}
+{%load static %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to HowGoodIsMyCV!</h1>
+        <p class="lead">Unlock the full potential of your resume with our comprehensive analysis tool. HowGoodIsMyCV helps you highlight your strengths and identify areas for improvement.</p>
+        <hr class="my-4">
+        <p>With advanced algorithms and industry insights, our platform provides personalized feedback to ensure your CV stands out in the competitive job market.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'upload' %}" role="button">Start Analyzing</a>
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+	
+	<div id="fh5co-counter" class="fh5co-counters">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 text-center animate-box">
+					<span class="fh5co-counter js-counter" data-from="0" data-to="40356" data-speed="5000" data-refresh-interval="50"></span>
+					<span class="fh5co-counter-label">Resumes Analyzed</span>
+				</div>
+				<div class="col-md-3 text-center animate-box">
+					<span class="fh5co-counter js-counter" data-from="0" data-to="30290" data-speed="5000" data-refresh-interval="50"></span>
+					<span class="fh5co-counter-label">Improvement Suggestions</span>
+				</div>
+				<div class="col-md-3 text-center animate-box">
+					<span class="fh5co-counter js-counter" data-from="0" data-to="2039" data-speed="5000" data-refresh-interval="50"></span>
+					<span class="fh5co-counter-label">Satisfied Users</span>
+				</div>
+				<div class="col-md-3 text-center animate-box">
+					<span class="fh5co-counter js-counter" data-from="0" data-to="997585" data-speed="5000" data-refresh-interval="50"></span>
+					<span class="fh5co-counter-label">Career Advancements</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div id="fh5co-explore" class="fh5co-bg-section">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h2>Optimize Your Resume</h2>
+					<p>Discover the full potential of your CV with our AI-powered analysis. Tailored suggestions and improvements are just a few clicks away.</p>
+				</div>
+			</div>
+		</div>		
+		<div class="fh5co-explore fh5co-explore1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-push-5 animate-box">
+						<img class="img-responsive" src="{%static 'images/howgoodismycv-user-interface-analyze-1.png'%}" alt="work">
+					</div>
+					<div class="col-md-4 col-md-pull-8 animate-box">
+						<div class="mt">
+							<h3>Deep Dive Analysis</h3>
+							<p>Our platform uses advanced NLP to dissect your resume, providing insights into how well it matches industry standards and job descriptions.</p>
+							<ul class="list-nav">
+								<li><i class="icon-check2"></i>Keyword Optimization</li>
+								<li><i class="icon-check2"></i>Layout & Structure Analysis</li>
+								<li><i class="icon-check2"></i>Personalized Improvement Suggestions</li>
+							</ul>
+							{% comment %} <p>
+								<a class="btn btn-primary btn-lg popup-vimeo btn-video" href="/media/videos/introduction-video.mp4">
+									<i class="icon-play"></i> Watch Video
+								</a>
+							</p> {% endcomment %}
+							<video width="400" controls>
+								<source src="/media/videos/introduction-video.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="fh5co-explore">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-pull-1 animate-box">
+						<img class="img-responsive" src="{%static 'images/howgoodismycv-user-interface-analyze-2.png'%}" alt="work">
+					</div>
+					<div class="col-md-4 animate-box">
+						<div class="mt">
+							<div>
+								<h4><i class="icon-user"></i>Personalized Feedback</h4>
+								<p>Receive actionable feedback tailored to your resume, empowering you to make the necessary adjustments and enhancements.</p>
+							</div>
+							<div>
+								<h4><i class="icon-shield"></i>Confidential and Secure</h4>
+								<p>Your privacy is paramount. We ensure your data is protected and never shared without your consent.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="fh5co-steps">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h2>Improve Your Resume in 4 Easy Steps</h2>
+					<p>Enhancing your resume has never been easier. Follow our guided process for noticeable improvements.</p>
+				</div>
+			</div>
+
+			<div class="row bs-wizard animate-box" style="border-bottom:0;">
+                
+				<div class="col-xs-3 bs-wizard-step complete">
+					<div class="text-center bs-wizard-stepnum"><h4>Step 1</h4></div>
+					<div class="progress"><div class="progress-bar"></div></div>
+					<a href="#" class="bs-wizard-dot"></a>
+					<div class="bs-wizard-info text-center"><p>Upload Your Resume</p></div>
+				</div>
+
+				<div class="col-xs-3 bs-wizard-step active">
+					<div class="text-center bs-wizard-stepnum"><h4>Step 2</h4></div>
+					<div class="progress"><div class="progress-bar"></div></div>
+					<a href="#" class="bs-wizard-dot"></a>
+					<div class="bs-wizard-info text-center"><p>Receive AI Analysis</p></div>
+				</div>
+
+				<div class="col-xs-3 bs-wizard-step disabled">
+					<div class="text-center bs-wizard-stepnum"><h4>Step 3</h4></div>
+					<div class="progress"><div class="progress-bar"></div></div>
+					<a href="#" class="bs-wizard-dot"></a>
+					<div class="bs-wizard-info text-center"><p>Implement Suggestions</p></div>
+				</div>
+
+				<div class="col-xs-3 bs-wizard-step disabled">
+					<div class="text-center bs-wizard-stepnum"><h4>Step 4</h4></div>
+					<div class="progress"><div the="progress-bar"></div></div>
+					<a href="#" class="bs-wizard-dot"></a>
+					<div class="bs-wizard-info text-center"><p>Boost Your Job Prospects</p></div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<footer id="fh5co-footer" role="contentinfo">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-3 fh5co-widget">
+					<h4>About Learning</h4>
+					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<h4>Learning</h4>
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Course</a></li>
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Terms</a></li>
+						<li><a href="#">Meetups</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<h4>Learn &amp; Grow</h4>
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Testimonials</a></li>
+						<li><a href="#">Handbook</a></li>
+						<li><a href="#">Held Desk</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<h4>Engage us</h4>
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Marketing</a></li>
+						<li><a href="#">Visual Assistant</a></li>
+						<li><a href="#">System Analysis</a></li>
+						<li><a href="#">Advertise</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+					<h4>Legal</h4>
+					<ul class="fh5co-footer-links">
+						<li><a href="#">Find Designers</a></li>
+						<li><a href="#">Find Developers</a></li>
+						<li><a href="#">Teams</a></li>
+						<li><a href="#">Advertise</a></li>
+						<li><a href="#">API</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<ul class="fh5co-social-icons">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+							<li><a href="#"><i class="icon-facebook"></i></a></li>
+							<li><a href="#"><i class="icon-linkedin"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+<!-- Modernizr JS -->
+<script src="{%static 'js/modernizr-2.6.2.min.js'%}"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- jQuery Easing -->
+<script src="{%static 'js/jquery.easing.1.3.js'%}"></script>
+
+<!-- Stellar.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.2/jquery.stellar.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> {% endcomment %}
+
+<!-- Waypoints -->
+<script src="{%static 'js/jquery.waypoints.min.js'%}"></script>
+
+<!-- Carousel -->
+<script src="{%static 'js/owl.carousel.min.js'%}"></script>
+
+<!-- countTo -->
+<script src="{%static 'js/jquery.countTo.js'%}"></script>
+
+<!-- Magnific Popup -->
+<script src="{%static 'js/jquery.magnific-popup.min.js'%}"></script>
+<script src="{%static 'js/magnific-popup-options.js'%}"></script>
+
+<!-- Main -->
+<script src="{%static 'js/main.js'%}"></script>
+{% endblock %}
